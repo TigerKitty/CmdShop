@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class CmdShop {
     public static void main(String[] args) throws ClassNotFoundException {
         //File file = new File("D:\\IntelliJ IDEA 2019.2.4\\CmdShop\\src\\users.xlsx");
-        InputStream in = Class.forName("CmdShop").getResourceAsStream("users.xlsx");
+        InputStream in = Class.forName("CmdShop").getResourceAsStream("/users.xlsx");
         ReadExcel readExcel = new ReadExcel();
         User[] users = readExcel.readExcel(in);
 
