@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -6,7 +5,7 @@ public class CmdShop {
     public static void main(String[] args) throws ClassNotFoundException {
         //File file = new File("D:\\IntelliJ IDEA 2019.2.4\\CmdShop\\src\\users.xlsx");
         InputStream in = Class.forName("CmdShop").getResourceAsStream("/users.xlsx");
-        ReadExcel readExcel = new ReadExcel();
+        ReadusersExcel readExcel = new ReadusersExcel();
         User[] users = readExcel.readExcel(in);
         Scanner sc = new Scanner(System.in);
         boolean bool = true;
@@ -27,6 +26,15 @@ public class CmdShop {
                     System.out.println("登录失败");
                 }
             }
+        }
+        if (bool == false){
+            System.out.println("商品列表如下");
+            Showproducts showproducts = new Showproducts();
+            showproducts.showProducts();
+            System.out.println("");
+            System.out.println("请回复商品序号（ID）选择商品");
+            int id = sc.nextInt();
+
         }
     }
 }
