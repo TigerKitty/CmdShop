@@ -1,14 +1,11 @@
 import java.io.InputStream;
 
 public class Showproducts {
-    Product[] products = null;
-    public Showproducts(){
-    }
-
+    private Product[] products = null;
     public void showProducts() throws ClassNotFoundException{
         InputStream in = Class.forName("CmdShop").getResourceAsStream("/products.xlsx");
         ReadproductsExcel readproductsExcel = new ReadproductsExcel();
-        products = readproductsExcel.readExcel(in);
+        products = readproductsExcel.readAllProducts(in);
         if(products==null){
             System.out.println("无商品");
         }else {
@@ -19,5 +16,8 @@ public class Showproducts {
                 System.out.println(product.getDesc());
             }
         }
+    }
+    public Product[] getProducts(){
+        return products;
     }
 }
