@@ -22,17 +22,17 @@ public class ReadproductsExcel {
                 XSSFRow row = xs.getRow(j);
                 Product product = new Product();
                 for (int k = 0; k <= row.getLastCellNum(); k++) {
-                    XSSFCell cell = row.getCell(k);
-                    if (cell == null)
-                        continue;
-                    if (k == 0) {
-                        product.setId(this.getValue(cell));
-                    } else if (k == 1) {
-                        product.setName(this.getValue(cell));
-                    } else if (k == 2) {
-                        product.setPrice(Float.valueOf(this.getValue(cell)));
-                    } else if (k == 3) {
-                        product.setDesc(this.getValue(cell));
+                            XSSFCell cell = row.getCell(k);
+                            if (cell == null)
+                                continue;
+                            if (k == 0) {
+                                product.setId(this.getValue(cell));
+                            } else if (k == 1) {
+                                product.setName(this.getValue(cell));
+                            } else if (k == 2) {
+                                product.setPrice(Float.valueOf(this.getValue(cell)));
+                            } else if (k == 3) {
+                                product.setDesc(this.getValue(cell));
                     }
                     products[j-1]=product;
                 }
@@ -73,6 +73,36 @@ public class ReadproductsExcel {
         }
         return null;
     }
+
+    /*public Object[] readProductsMoney(InputStream in,Product[] products) {
+        Object[] orderProducts = new Product[products.length+1];
+        int i = 0;
+        float m = 0;
+        try {
+            XSSFWorkbook xw = new XSSFWorkbook(in);
+            XSSFSheet xs = xw.getSheetAt(0);
+            while(i < products.length) {//注意最后一个先不加所以用products.length
+                for (int j = 1; j <= xs.getLastRowNum(); j++) {//行
+                    XSSFRow row = xs.getRow(j);
+                    Product product = new Product();
+                    XSSFCell cell = row.getCell(2);//第三列
+                    if (this.getValue(cell) != products[i].getName()) continue;//比对
+                    product.setId(this.getValue(cell));
+                    product.setName(this.getValue(cell));
+                    product.setPrice(Float.valueOf(this.getValue(cell)));
+                    product.setDesc(this.getValue(cell));
+                    m += product.getPrice();//加钱
+                    orderProducts[i] = product;//加入数组
+                    i++;
+                }
+            }//循环结束要把“钱”加入数组
+            orderProducts[i] = m;//要注意最后一个是“float”
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return orderProducts;
+    }*/
+
     private String getValue(XSSFCell cell) {
         String value;
         CellType type = cell.getCellType();
