@@ -41,8 +41,8 @@ public class AboutOrder {
         XSSFWorkbook workbook = new XSSFWorkbook(in);
         XSSFSheet sheet = workbook.getSheetAt(0);
         XSSFRow row =sheet.createRow(n);//新建第n行
+        XSSFCell cell = row.createCell(0);//新建一个单元格
         for(int i=0; i<6; i++){//6是订单表格的列数
-            XSSFCell cell = row.createCell(0);//新建一个单元格
             if(i==0){
                 //System.out.println("name="+order.getUser().getUsername());
                 cell.setCellValue(order.getUser().getUsername());
@@ -75,5 +75,32 @@ public class AboutOrder {
         outputStream.flush();
         outputStream.close();
         System.out.println("订单上传成功");
+    }
+    public void clearOrder(){
+            try{
+
+                FileInputStream is = new FileInputStream("E:\\Order.xlsx");
+
+                XSSFWorkbook workbook = new XSSFWorkbook(is);
+
+                XSSFSheet sheet = workbook.getSheetAt(0);
+                int n = 1;
+                XSSFRow row = sheet.getRow(n);
+                while(row != null){
+                    sheet.removeRow(row);
+                    FileOutputStream os = new FileOutputStream("E:\\Order.xlsx");
+                    workbook.write(os);
+                    is.close();
+                    os.close();
+                    row = sheet.getRow(++n);
+                    System.out.println("n="+n);
+                }
+                System.out.println("置空成功！");
+
+            } catch(Exception e) {
+
+                e.printStackTrace();
+
+            }
     }
 }
